@@ -1,0 +1,9 @@
+Installation:
+sudo gem install alert_grid
+
+Add the following line in config/initializers/alert_grid.rb
+
+AlertGrid::Signal.api_id = '<api_id>'
+
+Usage:
+AlertGrid::Signal.new('receiver_name).trigger
