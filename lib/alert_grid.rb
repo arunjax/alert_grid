@@ -6,7 +6,16 @@ require 'uri'
 module AlertGrid
   class Signal
     API_PATH = 'http://hq.alert-grid.com/save-signal/'
-    cattr_accessor :api_id
+
+    class << self
+      def api_id
+        @@api_id
+      end
+
+      def api_id=(value)
+        @@api_id = value
+      end
+    end
 
     attr_accessor :receiver
 
@@ -17,11 +26,11 @@ module AlertGrid
 
     def trigger(options = {})
       Net::HTTP.post_form(URI.parse(API_PATH),
-       {
-         'api_id'         => URI.escape(@@api_id),
-         'receiver_name'  => URI.escape(self.receiver)
-       }.merge(escape(options))
-     )
+        {
+          'api_id'         => URI.escape(@@api_id),
+          'receiver_name'  => URI.escape(self.receiver)
+        }.merge(escape(options))
+      )
     end
 
     def escape(options)
